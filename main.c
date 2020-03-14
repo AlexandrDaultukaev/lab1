@@ -34,17 +34,27 @@ int main()
             if (u % 4 == 0) {
                 y = token;
                 c[i].y = strtod(token, &y);
+                if (strlen(y) != 0) {
+                    printf("#%d Invalid input\n", i);
+                }
                 if (c[i].y == 0) {
-                    printf("Invalid input y\n");
+                    printf("#%d Invalid input y\n", i);
                 }
             } else if (u % 3 == 0) {
                 y = token;
                 c[i].x = strtod(token, &y);
+                if (strlen(y) != 0) {
+                    printf("#%d Invalid input\n", i);
+                }
                 if (c[i].x == 0) {
-                    printf("Invalid input x\n");
+                    printf("#%d Invalid input x\n", i);
                 }
             } else if (u % 2 == 0) {
-                c[i].r = atof(token);
+                c[i].r = strtod(token, &y);
+                if (strlen(y) != 0) {
+                    printf("#%d Invalid input\n", i);
+                    exit(1);
+                }
             } else {
                 strcpy(c[i].name, token);
             }
@@ -62,7 +72,7 @@ int main()
                        c[i].y,
                        c[i].r);
             } else {
-                printf("invalid Circle\n");
+                printf("#%d invalid Circle\n", i);
             }
         } else {
             printf("Unknown name %s\n", c[i].name);
