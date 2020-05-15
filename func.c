@@ -1,25 +1,19 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <stdlib.h>
 #include "main.h"
 
-//typedef struct {
-    //double r;
-    //double x;
-    //double y;
-    //char name[50];
-  //  char str[80];
-//} Circle;
+int print(int* kol) {
+	printf("Введите количество окружностей ");
+    scanf("%d", kol);
+    return *kol;
+}
 
-int main()
-{
-    int kol;
-    //char* token
-    //char* y;
-    kol = print(&kol);
-    verification(kol); 
-    //Circle c[kol];
-    /*for (int i = 0; i < kol; i++) {
+void verification (int kol) {
+	Circle c[kol];
+	char* token;
+    char* y;
+	for (int i = 0; i < kol; i++) {
         printf("Введите окружности следующим образом Circle(r,x,y) ");
         scanf("%s", c[i].str);
     }
@@ -78,6 +72,5 @@ int main()
         } else {
             printf("Unknown name %s\n", c[i].name);
         }
-    }*/
-    return 0;
+    }
 }
