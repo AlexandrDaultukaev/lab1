@@ -1,8 +1,15 @@
+.PHONY: all clean
+
+all: circle
+
 main.o: main.c main.h
-	gcc -c main.c
+	gcc -Wall -Werror -c main.c
 
 func.o: main.h func.c
-	gcc -c func.c
-	
+	gcc -Wall -Werror -c func.c
+
 circle: main.o func.o
 	gcc -Wall -Werror main.o func.o -o circle
+
+clean: 
+	rm -rf *.o circle
