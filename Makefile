@@ -2,14 +2,14 @@
 
 all: circle
 
-main.o: main.c main.h
-	gcc -Wall -Werror -c main.c -lm
+build/main.o: src/main.c src/main.h
+	gcc -Wall -Werror -c src/main.c -o build/main.o -lm
 
-func.o: main.h func.c
-	gcc -Wall -Werror -c func.c -lm
+build/func.o: src/main.h src/func.c
+	gcc -Wall -Werror -c src/func.c -o build/func.o -lm
 
-circle: main.o func.o
-	gcc -Wall -Werror main.o func.o -o circle -lm
+circle: build/main.o build/func.o
+	gcc -Wall -Werror build/main.o build/func.o -o circle -lm
 
 clean: 
-	rm -rf *.o circle
+	rm -rf build/*.o circle

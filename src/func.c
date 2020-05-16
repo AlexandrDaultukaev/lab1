@@ -1,44 +1,55 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
 #include "main.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #define pi 3.1415
 
-double area_t(double a, double b, double c, double p) {
-    p = p/2;
-    double S = ((p*(p-a)*(p-b)*(p-c)));
+double area_t(double a, double b, double c, double p)
+{
+    p = p / 2;
+    double S = ((p * (p - a) * (p - b) * (p - c)));
     S = sqrt(S);
     return S;
 }
 
-double perimeter_t(double a, double b, double c) {
-    return (a+b+c);
+double perimeter_t(double a, double b, double c)
+{
+    return (a + b + c);
 }
 
-double area(int r) {
+double area(int r)
+{
     return (pi * r * r);
 }
 
-double perimeter(int r) {
+double perimeter(int r)
+{
     return (2 * pi * r);
 }
 
-int check_to_existence_t(double a, double b, double c) {
-    if ((a+b > c) && (a+c > b) && (b+c > a))
+int check_to_existence_t(double a, double b, double c)
+{
+    if ((a + b > c) && (a + c > b) && (b + c > a))
         return 0;
-    else 
-        printf("Треугольник со сторонами a=%f, b=%f, c=%f не существует\n", a, b, c);
+    else
+        printf("Треугольник со сторонами a=%f, b=%f, c=%f не существует\n",
+               a,
+               b,
+               c);
     return 1;
 }
 
-int choose() {
+int choose()
+{
     char str[30];
     do {
-        printf("Напишите какую фигуру вы хотите использовать: triangle/circle\n");
+        printf("Напишите какую фигуру вы хотите использовать: "
+               "triangle/circle\n");
         scanf("%s", str);
-    } while (((strcmp(str, "triangle")) != 0) && ((strcmp(str, "circle")) != 0));
+    } while (((strcmp(str, "triangle")) != 0)
+             && ((strcmp(str, "circle")) != 0));
     if ((strcmp(str, "triangle")) == 0)
         return 1;
     if ((strcmp(str, "circle")) == 0)
@@ -46,9 +57,10 @@ int choose() {
     return -1;
 }
 
-int print(int* kol, int ch) {
+int print(int* kol, int ch)
+{
     if (ch == 2) {
-	   printf("Введите количество окружностей ");
+        printf("Введите количество окружностей ");
     }
     if (ch == 1) {
         printf("Введите количество треугольников ");
@@ -57,7 +69,8 @@ int print(int* kol, int ch) {
     return *kol;
 }
 
-void verification_t(int kol) {
+void verification_t(int kol)
+{
     Triangle t[kol];
     char* y;
     char* token;
@@ -65,7 +78,7 @@ void verification_t(int kol) {
         printf("Введите треугольники следующим образом Triangle(a,b,c) ");
         scanf("%s", t[i].str);
     }
-    for (int i = 0; i < kol; i++) { 
+    for (int i = 0; i < kol; i++) {
         if (strstr(t[i].str, ")") == NULL) {
             printf("#%d Invalid input\n", i);
         }
@@ -105,6 +118,11 @@ void verification_t(int kol) {
             token = strtok(NULL, "(,)");
         }
     }
+    Print_Triangle(kol, t);
+}
+
+void Print_Triangle(int kol, Triangle* t)
+{
     for (int i = 0; i < kol; i++) {
         if (strcmp(t[i].name, "Triangle") == 0) {
             if ((t[i].a > 0) && (t[i].c > 0) && (t[i].b > 0)) {
@@ -112,12 +130,15 @@ void verification_t(int kol) {
                     double S, P;
                     P = perimeter_t(t[i].a, t[i].b, t[i].c);
                     S = area_t(t[i].a, t[i].c, t[i].b, P);
-                    printf("Треугольник %s номер %d : a=%f,b=%f,c=%f, S = %f, P = %f\n",
-                       t[i].name,
-                       i,
-                       t[i].a,
-                       t[i].b,
-                       t[i].c, S, P);
+                    printf("Треугольник %s номер %d : a=%f,b=%f,c=%f, S = %f, "
+                           "P = %f\n",
+                           t[i].name,
+                           i,
+                           t[i].a,
+                           t[i].b,
+                           t[i].c,
+                           S,
+                           P);
                 } else {
                     printf("#%d invalid Triangle\n", i);
                 }
@@ -128,15 +149,16 @@ void verification_t(int kol) {
     }
 }
 
-void verification_c(int kol) {
-	Circle c[kol];
-	char* token;
+void verification_c(int kol)
+{
+    Circle c[kol];
+    char* token;
     char* y;
-	for (int i = 0; i < kol; i++) {
+    for (int i = 0; i < kol; i++) {
         printf("Введите окружности следующим образом Circle(r,x,y) ");
         scanf("%s", c[i].str);
     }
-    for (int i = 0; i < kol; i++) { 
+    for (int i = 0; i < kol; i++) {
         if (strstr(c[i].str, ")") == NULL) {
             printf("#%d Invalid input\n", i);
         }
@@ -176,18 +198,41 @@ void verification_c(int kol) {
             token = strtok(NULL, "(,)");
         }
     }
+    Print_Circle(kol, c);
+}
+
+void intersects(int amount, int i, Circle* c)
+{
+    int j;
+    printf("\tIntersects:\n");
+    for (j = 0; j < amount; j++) {
+        if (i != j) {
+            if ((abs(sqrt(pow(c[i].x - c[j].x, 2) + pow(c[i].y - c[j].y, 2))))
+                <= (c[i].r + c[j].r)) {
+                printf("\t  %d. circle\n", j + 1);
+            }
+        }
+    }
+}
+
+void Print_Circle(int kol, Circle* c)
+{
     for (int i = 0; i < kol; i++) {
         if (strcmp(c[i].name, "Circle") == 0) {
             if (c[i].r > 0) {
                 double S, P;
                 S = area(c[i].r);
                 P = perimeter(c[i].r);
-                printf("Окружность %s номер %d : x=%f,y=%f,r=%f, S = %lf, P = %lf\n",
+                printf("Окружность %s номер %d : x=%f,y=%f,r=%f, S = %f, P = "
+                       "%f\n",
                        c[i].name,
-                       i,
+                       i + 1,
                        c[i].x,
                        c[i].y,
-                       c[i].r, S, P);
+                       c[i].r,
+                       S,
+                       P);
+                intersects(kol, i, c);
             } else {
                 printf("#%d invalid Circle\n", i);
             }

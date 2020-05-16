@@ -1,11 +1,11 @@
 #ifndef H_MAIN
 #define H_MAIN
 
-#include <stdio.h>
-#include <string.h>
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
- 
+#include <string.h>
+
 typedef struct {
     double r;
     double x;
@@ -31,5 +31,8 @@ int choose();
 double area_t(double a, double b, double c, double p);
 double perimeter_t(double a, double b, double c);
 int check_to_existence_t(double a, double b, double c);
+void Print_Triangle(int kol, Triangle* t);
+void Print_Circle(int kol, Circle* c);
+void intersects(int amount, int i, Circle* c);
 
 #endif
