@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include <stdlib.h>
  
 typedef struct {
@@ -13,7 +14,22 @@ typedef struct {
     char str[80];
 } Circle;
 
-int print(int* kol);
-void verification (int kol);
+typedef struct {
+    double a;
+    double b;
+    double c;
+    char name[50];
+    char str[80];
+} Triangle;
+
+int print(int* kol, int ch);
+void verification_c(int kol);
+void verification_t(int kol);
+double area(int r);
+double perimeter(int r);
+int choose();
+double area_t(double a, double b, double c, double p);
+double perimeter_t(double a, double b, double c);
+int check_to_existence_t(double a, double b, double c);
 
 #endif
