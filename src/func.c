@@ -27,16 +27,24 @@ double perimeter_t(double a, double b, double c)
 
 double area(int r)
 {
+    if (r <= 0) {
+        return -2;
+    }
     return (pi * r * r);
 }
 
 double perimeter(int r)
 {
+    if (r <= 0)
+        return -2;
     return (2 * pi * r);
 }
 
 int check_to_existence_t(double a, double b, double c)
 {
+    if ((a <= 0) || (b <= 0) || (c <= 0)) {
+        return -2;
+    }
     if ((a + b > c) && (a + c > b) && (b + c > a))
         return 0;
     else
@@ -65,13 +73,15 @@ int choose()
 
 int print(int* kol, int ch)
 {
-    if (ch == 2) {
-        printf("Введите количество окружностей ");
-    }
-    if (ch == 1) {
-        printf("Введите количество треугольников ");
-    }
-    scanf("%d", kol);
+    do {
+        if (ch == 2) {
+            printf("Введите количество окружностей(не более 999) ");
+        }
+        if (ch == 1) {
+            printf("Введите количество треугольников(не более 999) ");
+        }
+        scanf("%d", kol);
+    } while (*kol >= 1000);
     return *kol;
 }
 
