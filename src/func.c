@@ -8,6 +8,9 @@
 
 double area_t(double a, double b, double c, double p)
 {
+    if ((a <= 0) || (b <= 0) || (c <= 0)) {
+        return -2;
+    }
     p = p / 2;
     double S = ((p * (p - a) * (p - b) * (p - c)));
     S = sqrt(S);
@@ -16,6 +19,9 @@ double area_t(double a, double b, double c, double p)
 
 double perimeter_t(double a, double b, double c)
 {
+    if ((a <= 0) || (b <= 0) || (c <= 0)) {
+        return -2;
+    }
     return (a + b + c);
 }
 
